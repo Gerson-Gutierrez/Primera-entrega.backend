@@ -1,4 +1,4 @@
-import {promises as fs} from 'fs'
+import {promises as fs} from 'fs';
 import { nanoid } from 'nanoid';
 
 class ProductManager {
@@ -12,7 +12,7 @@ class ProductManager {
 
     }
 
-    writeProducts = async (product) =>{
+    writeProducts = async (product) => {
         await fs.writeFile(this.path, JSON.stringify(product));
 
     }
@@ -27,7 +27,7 @@ class ProductManager {
 
     addProducts = async (product) =>{
         const productsOld = await this.readProducts();
-        product.id = nanoid()
+        product.id = nanoid(1)
         const productAll = [...productsOld, product];
         await this.writeProducts(productAll);
         return "Producto Agregado";
@@ -58,8 +58,9 @@ class ProductManager {
 
     deleteProducts = async  (id) => {
      const products = await this.readProducts();
-     const existProducts = products.some(prod => prod.id === id)
-     if (existProducts) {
+     const productsExists = products.some(prod => prod.id === id)
+     
+     if (productsExists) {
         const filterProducts = products.filter(prod => prod.id != id)
         await this.writeProducts(filterProducts)
         return "Producto Eliminado"

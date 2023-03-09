@@ -1,6 +1,6 @@
-import {promises as fs} from 'fs'
+import {promises as fs} from 'fs';
 import { nanoid } from 'nanoid';
-import ProductManager from "./ProductManager.js" 
+import ProductManager from "./ProductManager.js";
 
 const productAll = new ProductManager
 
@@ -10,13 +10,13 @@ class CartManager {
     }
 
     readCarts = async ()=> {
-        const carts = await fs.readFile(this.path, "utf-8");
-        return JSON.parse(carts);
+        const carts = await fs.readFile(this.path, "utf-8")
+        return JSON.parse(carts)
 
     }
 
     writeCarts = async (carts) =>{
-        await fs.writeFile(this.path, JSON.stringify(carts));
+        await fs.writeFile(this.path, JSON.stringify(carts))
 
     };
 
@@ -61,13 +61,10 @@ class CartManager {
             return "producto sumado  al carrito"
         }
 
-        cartById.products.push({id:productById.id, quantity: 1})
+       cartById.products.push({id:productById.id, quantity: 1});
          
-
-
-        
-        const cartsConcat = [cartById, ...cartFilter]
-        await this.writeCarts(cartsConcat)
+        const cartsConcat = [cartById, ...cartFilter];
+        await this.writeCarts(cartsConcat);
         return "producto agregado al carrito"
 
 
