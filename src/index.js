@@ -5,10 +5,12 @@ import { engine } from "express-handlebars";
 import * as path from "path"
 import __dirname from "./utils.js";
 import ProductManager from "./controllers/ProductManager.js";
-import {Server} from 'socket.io';
+
+
 
 
 const app = express();
+configureHandlebars(script)
 const product = new ProductManager();
 
 app.use(express.json());
@@ -22,7 +24,7 @@ app.use("/", express.static(__dirname + "/public"));
 
 app.get("/", async (req,res)=>{
   const allProducts = await product.getProducts()
-  res.render("home",{
+  res.render("index",{
     title:"gerson",
     products: allProducts
   })
@@ -34,7 +36,7 @@ app.use("/api/cart", CartRouter);
 
 
 const PORT = 8080;
-const httpServer = app.listen(PORT, () =>{
+const Server = app.listen(PORT, () =>{
   console.log(`Servidor Express Puerto ${PORT}`);
 });
 
